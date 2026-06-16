@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultura de Paz - Reglamento Escolar</title>
+    <!-- Google Fonts para estilo 'Storybook' -->
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Iconos Phosphor (más limpios y amigables) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Partículas / Fondo dinámico -->
+    <div id="background-elements"></div>
+
+    <main class="app-container">
+        <!-- Pantalla de Inicio -->
+        <section id="screen-home" class="screen active">
+            <header>
+                <h1>🧸 Cultura de Paz 🌈</h1>
+                <p>¡Aprende las reglas para jugar felices!</p>
+                <button class="audio-btn" aria-label="Escuchar instrucciones" onclick="playAudio('Bienvenido a Cultura de Paz. Toca los botones verdes para comenzar a jugar y aprender las reglas de nuestro salón.')">
+                    <i class="ph-fill ph-speaker-high"></i>
+                </button>
+            </header>
+            
+            <nav class="levels-menu">
+                <button class="level-card" onclick="goToScreen('screen-level1')">
+                    <div class="card-icon">🚦</div>
+                    <h2>Nivel 1</h2>
+                    <p>Semáforo de Acciones</p>
+                </button>
+                <button class="level-card" onclick="goToScreen('screen-level2')">
+                    <div class="card-icon">🏗️</div>
+                    <h2>Nivel 2</h2>
+                    <p>Constructores de Acuerdos</p>
+                </button>
+                <button class="level-card" onclick="goToScreen('screen-level3')">
+                    <div class="card-icon">📖</div>
+                    <h2>Nivel 3</h2>
+                    <p>El Dilema del Recreo</p>
+                </button>
+                <button class="level-card special-card" onclick="goToScreen('screen-wall')">
+                    <div class="card-icon">☮️</div>
+                    <h2>Muro de la Paz</h2>
+                    <p>Firma tu compromiso</p>
+                </button>
+            </nav>
+        </section>
+
+        <!-- Nivel 1: Semáforo de Acciones -->
+        <section id="screen-level1" class="screen">
+            <button class="back-btn" onclick="goToScreen('screen-home')"><i class="ph-bold ph-arrow-left"></i> Volver</button>
+            <div class="mini-header">
+                <h2>El Semáforo de las Acciones 🚦</h2>
+                <button class="audio-btn" onclick="playAudio('Arrastra las imágenes a la cara feliz si ayudan a llevarnos bien, o a la cara triste si no nos ayudan.')">
+                    <i class="ph-fill ph-speaker-high"></i> Escuchar
+                </button>
+            </div>
+            
+            <div class="drag-drop-game">
+                <div class="drop-zones">
+                    <div class="zone happy-zone" id="zone-happy" data-type="good">
+                        <div class="face">😊</div>
+                        <p>Nos ayuda</p>
+                    </div>
+                    <div class="zone sad-zone" id="zone-sad" data-type="bad">
+                        <div class="face">😢</div>
+                        <p>No nos ayuda</p>
+                    </div>
+                </div>
+                
+                <div class="draggable-items" id="draggable-container">
+                    <!-- Los items se generarán con JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Nivel 2: Constructores de Acuerdos -->
+        <section id="screen-level2" class="screen">
+            <button class="back-btn" onclick="goToScreen('screen-home')"><i class="ph-bold ph-arrow-left"></i> Volver</button>
+            <div class="mini-header">
+                <h2>Constructores de Acuerdos 🏗️</h2>
+                <button class="audio-btn" onclick="playAudio('Elige 3 reglas importantes para nuestro salón presionando los cuadros de abajo.')">
+                    <i class="ph-fill ph-speaker-high"></i> Escuchar
+                </button>
+            </div>
+
+            <div class="rules-game">
+                <div class="selected-counter">
+                    Reglas elegidas: <span id="rules-count">0</span>/3
+                </div>
+                <div class="rules-grid" id="rules-container">
+                    <!-- Reglas generadas por JS -->
+                </div>
+                <div class="celebration-container" id="celebration" style="display: none;">
+                    <h3>¡Genial! Tenemos nuestras reglas 🎉</h3>
+                    <div class="mascots">🐻 🐰 🦊</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nivel 3: El Dilema del Recreo -->
+        <section id="screen-level3" class="screen">
+            <button class="back-btn" onclick="goToScreen('screen-home')"><i class="ph-bold ph-arrow-left"></i> Volver</button>
+            <div class="mini-header">
+                <h2>El Dilema del Recreo 📖</h2>
+                <button class="audio-btn" onclick="playAudio('Lee la historia y ayuda a los personajes a tomar la mejor decisión para jugar todos juntos.')">
+                    <i class="ph-fill ph-speaker-high"></i> Escuchar
+                </button>
+            </div>
+
+            <div class="story-game">
+                <div class="story-scene">
+                    <div class="scene-image">🛝</div>
+                    <p id="story-text">¡Es hora de recreo! Leo y Mía quieren usar la misma resbaladilla al mismo tiempo. ¿Qué deberían hacer?</p>
+                </div>
+                
+                <div class="story-choices" id="story-choices">
+                    <button class="choice-btn" onclick="selectStoryOutcome('bad')">
+                        <div class="choice-icon">😠</div>
+                        <p>Empujarse para subir primero</p>
+                    </button>
+                    <button class="choice-btn" onclick="selectStoryOutcome('good')">
+                        <div class="choice-icon">🤝</div>
+                        <p>Hacer una fila y tomar turnos</p>
+                    </button>
+                </div>
+
+                <div class="story-result" id="story-result" style="display: none;">
+                    <div class="result-icon" id="result-icon">✨</div>
+                    <h3 id="result-title">¡Gran decisión!</h3>
+                    <p id="result-text">Tomar turnos hace que todos puedan jugar felices y seguros.</p>
+                    <button class="btn-primary" onclick="resetStory()">Jugar de nuevo</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Muro de la Paz -->
+        <section id="screen-wall" class="screen">
+            <button class="back-btn" onclick="goToScreen('screen-home')"><i class="ph-bold ph-arrow-left"></i> Volver</button>
+            <div class="mini-header">
+                <h2>Muro de la Paz ☮️</h2>
+                <button class="audio-btn" onclick="playAudio('Haz clic en el muro para dejar tu sello y prometer que seguirás las reglas de paz.')">
+                    <i class="ph-fill ph-speaker-high"></i> Escuchar
+                </button>
+            </div>
+
+            <div class="wall-container" id="peace-wall">
+                <p class="wall-hint">¡Toca la pared para dejar tu marca!</p>
+                <!-- Sellos digitales (clicks) irán aquí -->
+            </div>
+            
+            <div class="stamp-selector">
+                <p>Elige tu sello:</p>
+                <div class="stamps">
+                    <button class="stamp-btn active" onclick="setCurrentStamp('⭐')">⭐</button>
+                    <button class="stamp-btn" onclick="setCurrentStamp('✋')">✋</button>
+                    <button class="stamp-btn" onclick="setCurrentStamp('❤️')">❤️</button>
+                    <button class="stamp-btn" onclick="setCurrentStamp('🐾')">🐾</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Confetti para celebraciones -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
