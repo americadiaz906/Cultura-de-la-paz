@@ -1,0 +1,502 @@
+:root {
+    --color-bg-primary: #f0f7ff; /* Azul pastel muy suave */
+    --color-bg-card: #ffffff;
+    --color-text-main: #334155;
+    
+    /* Paleta Pastel "Storybook" */
+    --color-blue: #93c5fd;
+    --color-green: #86efac;
+    --color-yellow: #fde047;
+    --color-orange: #fdba74;
+    --color-red-pastel: #fca5a5;
+    --color-purple: #c4b5fd;
+
+    --border-radius-lg: 24px;
+    --border-radius-md: 16px;
+    --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Balsamiq Sans', cursive, sans-serif;
+}
+
+body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: radial-gradient(var(--color-blue) 1px, transparent 1px),
+                      radial-gradient(var(--color-pink) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 900px;
+    min-height: 100vh; /* Para móviles es mejor ocupar toda la pantalla */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    position: relative;
+    box-shadow: var(--shadow-soft);
+    border: 4px solid white;
+}
+
+@media (min-width: 768px) {
+    .app-container {
+        min-height: 80vh;
+        border-radius: 40px;
+        margin: 2rem;
+    }
+}
+
+/* Pantallas / Vistas */
+.screen {
+    display: none;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.screen.active {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Botones y UI Base */
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.audio-btn {
+    background: var(--color-yellow);
+    color: #b45309;
+    border-radius: 50px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 0 #ca8a04;
+    margin-top: 1rem;
+}
+
+.audio-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #ca8a04;
+}
+
+.audio-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 #ca8a04;
+}
+
+.back-btn {
+    background: #e2e8f0;
+    color: #475569;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 1rem;
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.btn-primary {
+    background: var(--color-blue);
+    color: #1e3a8a;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 0 #3b82f6;
+    margin-top: 1rem;
+}
+
+/* Home / Menú */
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+header h1 {
+    font-size: 3rem;
+    color: #1e40af;
+    text-shadow: 2px 2px 0 white;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    font-size: 1.5rem;
+    color: #475569;
+}
+
+.levels-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.level-card {
+    background: white;
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    border: 4px solid transparent;
+}
+
+.level-card:nth-child(1) { border-color: var(--color-purple); }
+.level-card:nth-child(2) { border-color: var(--color-green); }
+.level-card:nth-child(3) { border-color: var(--color-orange); }
+.level-card.special-card { border-color: var(--color-blue); background: var(--color-bg-primary); }
+
+
+.level-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.card-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+}
+
+.level-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #334155;
+}
+
+.level-card p {
+    font-size: 1rem;
+    color: #64748b;
+}
+
+/* Headers de Minijuegos */
+.mini-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.mini-header h2 {
+    font-size: 2.5rem;
+    color: #1e40af;
+}
+
+/* --- Nivel 1: Drag & Drop --- */
+.drag-drop-game {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+.drop-zones {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.zone {
+    width: 45%;
+    max-width: 250px;
+    height: 250px;
+    border-radius: var(--border-radius-lg);
+    border: 4px dashed #cbd5e1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.5);
+    transition: all 0.3s ease;
+}
+
+.zone.drag-over {
+    transform: scale(1.05);
+}
+
+.happy-zone.drag-over { border-color: var(--color-green); background: #f0fdf4; }
+.sad-zone.drag-over { border-color: var(--color-red-pastel); background: #fef2f2; }
+
+.zone .face {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+}
+
+.zone p {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.draggable-items {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    min-height: 120px;
+    padding: 1rem;
+    background: white;
+    border-radius: var(--border-radius-md);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    width: 100%;
+}
+
+.draggable-item {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    cursor: grab;
+    box-shadow: var(--shadow-soft);
+    border: 3px solid var(--color-blue);
+    user-select: none;
+    touch-action: none; /* Importante para arrastrar en móviles */
+}
+
+.draggable-item:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+}
+
+/* --- Nivel 2: Reglas --- */
+.rules-game {
+    text-align: center;
+}
+
+.selected-counter {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    background: var(--color-blue);
+    color: white;
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+}
+
+.rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.rule-card {
+    background: white;
+    border: 4px solid #e2e8f0;
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.rule-card:hover { border-color: var(--color-blue); }
+
+.rule-card.selected {
+    background: var(--color-green);
+    border-color: #22c55e;
+    transform: scale(1.05) rotate(2deg);
+}
+
+.rule-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.rule-card p {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.celebration-container {
+    margin-top: 2rem;
+    animation: fadeIn 0.5s;
+}
+
+.celebration-container h3 {
+    font-size: 2rem;
+    color: #16a34a;
+    margin-bottom: 1rem;
+}
+
+.mascots {
+    font-size: 3rem;
+    letter-spacing: 1rem;
+    animation: bounce 1s infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-20px); }
+}
+
+/* --- Nivel 3: Historia --- */
+.story-game {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+}
+
+.story-scene {
+    margin-bottom: 2rem;
+}
+
+.scene-image {
+    font-size: 6rem;
+    margin-bottom: 1rem;
+}
+
+.story-scene p {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.story-choices {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.choice-btn {
+    flex: 1;
+    min-width: 250px;
+    background: var(--color-bg-primary);
+    border: 3px solid var(--color-blue);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.choice-btn:hover {
+    background: var(--color-blue);
+    color: white;
+}
+
+.choice-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.choice-btn p {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.story-result {
+    margin-top: 2rem;
+}
+
+.result-icon { font-size: 5rem; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+@keyframes popIn {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+/* --- Muro de la Paz --- */
+.wall-container {
+    width: 100%;
+    height: 400px;
+    background: #fed7aa url('https://www.transparenttextures.com/patterns/brick-wall.png'); /* Textura de ladrillo suave opcional */
+    border-radius: var(--border-radius-lg);
+    border: 8px solid #fdba74;
+    position: relative;
+    cursor: crosshair;
+    overflow: hidden;
+    box-shadow: inset 0 10px 20px rgba(0,0,0,0.05); /* Sombra interior */
+}
+
+.wall-hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: rgba(0,0,0,0.2);
+    font-weight: bold;
+    pointer-events: none; /* No bloquear clics */
+}
+
+.stamp {
+    position: absolute;
+    font-size: 3rem;
+    transform: translate(-50%, -50%); /* Centrar en el cursor */
+    animation: stampAppears 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    user-select: none;
+    pointer-events: none;
+}
+
+@keyframes stampAppears {
+    0% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1) rotate(calc(var(--rot) * 1deg)); opacity: 1; }
+}
+
+.stamp-selector {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.stamp-selector p {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.stamps {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.stamp-btn {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid transparent;
+}
+
+.stamp-btn.active {
+    border-color: var(--color-blue);
+    background: #eff6ff;
+    transform: scale(1.1);
+}
